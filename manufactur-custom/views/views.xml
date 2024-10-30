@@ -1,0 +1,44 @@
+<odoo>
+  <data>
+    <!-- Manufacturing Order -->
+    <record id="mrp_production_form_inh" model="ir.ui.view">
+      <field name="name">mrp.production.form.inh</field>
+      <field name="model">mrp.production</field>
+      <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+      <field name="arch" type="xml">
+        <xpath expr="//group/group[1]/div[@class='o_row'][2]" position="after">
+          <field name="is_plan" invisible="1" />
+          <field name="estimated_production_time" widget="float_time" force_save="1" readonly="1"/>
+        </xpath>
+        <field name="date_planned_finished" position="attributes">
+          <attribute name="invisible">0</attribute>
+        </field>
+        <field name="components_availability_state" position="before">
+          <field name="date_planned_finished" position="move" />
+          <field name="date_start" readonly="1" force_save="1" />
+          <field name="date_finished" readonly="1" force_save="1" />
+        </field>
+        <button name="action_confirm" position="after">
+          <button name="action_plan_production" string="Plan Production" attrs="{'invisible':[('is_plan','=',True)]}" type="object" class="oe_highlight"/>
+        </button>
+        <button name="action_confirm" position="attributes">
+          <attribute name="attrs">{'invisible': ['|',('is_plan', '=', False),('state', '!=', 'draft')]}</attribute>
+        </button>
+      </field>
+    </record>
+    <!-- Manufacturing Order -->
+
+    <!-- BoM -->
+    <record id="bom_view_form_inh" model="ir.ui.view">
+      <field name="name">bom.view.form.inh</field>
+      <field name="model">mrp.bom</field>
+      <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+      <field name="arch" type="xml">
+        <div class="o_row" position="after">
+          <field name="production_time" widget="float_time"/>
+        </div>
+      </field>
+    </record>
+    <!-- BoM -->
+  </data>
+</odoo>

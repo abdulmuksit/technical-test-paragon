@@ -1,0 +1,72 @@
+<odoo>
+  <data>
+    <record id="view_order_form_inherit" model="ir.ui.view">
+      <field name="name">sale.order.form.inherit.cancel.reason</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="arch" type="xml">
+        <field name="payment_term_id" position="after">
+          <field name="cancel_reason_id"/>
+        </field>
+      </field>
+    </record>
+
+    <record id="view_cancel_reason_wizard_form" model="ir.ui.view">
+      <field name="name">cancel.reason.wizard.form</field>
+      <field name="model">cancel.reason.wizard</field>
+      <field name="arch" type="xml">
+        <form string="Select Cancel Reason">
+          <group>
+            <field name="cancel_reason_id"/>
+          </group>
+          <footer>
+            <button string="Confirm" type="object" name="action_confirm" class="oe_highlight"/>
+            <button string="Cancel" class="btn-secondary" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="cancel_reason_view_tree" model="ir.ui.view">
+      <field name="name">cancel.reason.view.tree</field>
+      <field name="model">cancel.reason</field>
+      <field name="arch" type="xml">
+        <tree string="Cancel Reasons">
+          <field name="name"/>
+          <field name="description"/>
+          <field name="active"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_cancel_reason_form" model="ir.ui.view">
+      <field name="name">cancel.reason.form</field>
+      <field name="model">cancel.reason</field>
+      <field name="arch" type="xml">
+        <form string="Cancel Reason">
+          <sheet>
+            <group>
+              <field name="name" required="1"/>
+              <field name="description"/>
+              <field name="active"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_cancel_reason" model="ir.actions.act_window">
+      <field name="name">Cancel Reasons</field>
+      <field name="res_model">cancel.reason</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Create the reasons for canceling sales orders.
+        </p>
+      </field>
+    </record>
+
+    <menuitem id="menu_cancel_reason" name="Cancel Reasons" parent="sale.menu_sale_config"
+      action="action_cancel_reason" sequence="20"/>
+  </data>
+</odoo>

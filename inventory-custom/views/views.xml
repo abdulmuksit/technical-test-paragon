@@ -1,0 +1,51 @@
+<odoo>
+  <data>
+    <record id="view_location_product_rule_tree" model="ir.ui.view">
+        <field name="name">location.product.rule.tree</field>
+        <field name="model">location.product.rule</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="location_id"/>
+                <field name="lot_ids"/>
+                <field name="product_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_location_product_rule_form" model="ir.ui.view">
+        <field name="name">location.product.rule.form</field>
+        <field name="model">location.product.rule</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="location_id"/>
+                        <field name="lot_ids" widget="many2many_tags"/>
+                        <field name="product_ids" widget="many2many_tags" readonly="1" force_save="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_location_product_rule" model="ir.actions.act_window">
+        <field name="name">Location Product Rules</field>
+        <field name="res_model">location.product.rule</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_location_product_rule" action="action_location_product_rule" name="Location Product Rules" parent="stock.menu_stock_root" sequence="5"/>
+
+    <record id="stock_picking_view_form_inh" model="ir.ui.view">
+      <field name="name">stock.picking.view.form.inh</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.view_picking_form"/>
+      <field name="arch" type="xml">
+        <field name="lot_ids" position="attributes">
+          <attribute name="attrs">{}</attribute>
+          <attribute name="required">0</attribute>
+        </field>
+      </field>
+    </record>
+  </data>
+</odoo>
